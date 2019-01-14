@@ -1,0 +1,1165 @@
+
+%% bare_adv.tex
+%% V1.4b
+%% 2015/08/26
+%% by Michael Shell
+%% See: 
+%% http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the advanced use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.8b or later) with an IEEE Computer
+%% Society journal paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/pkg/ieeetran
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall the IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%*************************************************************************
+
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. The IEEE's font choices and paper sizes can   ***
+% *** trigger bugs that do not appear when using other class files.       ***                          ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+% IEEEtran V1.7 and later provides for these CLASSINPUT macros to allow the
+% user to reprogram some IEEEtran.cls defaults if needed. These settings
+% override the internal defaults of IEEEtran.cls regardless of which class
+% options are used. Do not use these unless you have good reason to do so as
+% they can result in nonIEEE compliant documents. User beware. ;)
+%
+%\newcommand{\CLASSINPUTbaselinestretch}{1.0} % baselinestretch
+%\newcommand{\CLASSINPUTinnersidemargin}{1in} % inner side margin
+%\newcommand{\CLASSINPUToutersidemargin}{1in} % outer side margin
+%\newcommand{\CLASSINPUTtoptextmargin}{1in}   % top text margin
+%\newcommand{\CLASSINPUTbottomtextmargin}{1in}% bottom text margin
+
+
+
+%
+\documentclass[10pt,journal,compsoc]{IEEEtran}
+\usepackage{amsmath}%
+\DeclareMathOperator*{\argmin}{arg\,min} % thin space, limits underneath in displays
+\usepackage{xeCJK}% 调用 xeCJK 宏包
+\setCJKmainfont{SimSun}% 设置 CJK 主字体为 SimSun （宋体）
+\newtheorem{prop}{Proposition}
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[10pt,journal,compsoc]{../sty/IEEEtran}
+
+
+% For Computer Society journals, IEEEtran defaults to the use of 
+% Palatino/Palladio as is done in IEEE Computer Society journals.
+% To go back to Times Roman, you can use this code:
+%\renewcommand{\rmdefault}{ptm}\selectfont
+
+
+
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/pkg/ifpdf
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+
+
+
+
+% *** CITATION PACKAGES ***
+%
+\ifCLASSOPTIONcompsoc
+  % The IEEE Computer Society needs nocompress option
+  % requires cite.sty v4.0 or later (November 2003)
+  \usepackage[nocompress]{cite}
+\else
+  % normal IEEE
+  \usepackage{cite}
+\fi
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of the IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off
+% such as if a citation ever needs to be enclosed in parenthesis.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 5.0 (2009-03-20) and later if using hyperref.sty.
+% The latest version can be obtained at:
+% http://www.ctan.org/pkg/cite
+% The documentation is contained in the cite.sty file itself.
+%
+% Note that some packages require special options to format as the Computer
+% Society requires. In particular, Computer Society  papers do not use
+% compressed citation ranges as is done in typical IEEE papers
+% (e.g., [1]-[4]). Instead, they list every citation separately in order
+% (e.g., [1], [2], [3], [4]). To get the latter we need to load the cite
+% package with the nocompress option which is supported by cite.sty v4.0
+% and later.
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation
+% can be obtained at: 
+% http://www.ctan.org/pkg/graphicx
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found at:
+% http://www.ctan.org/pkg/epslatex
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics.
+%
+% Note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/amsmath
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%\usepackage{acronym}
+% acronym.sty was written by Tobias Oetiker. This package provides tools for
+% managing documents with large numbers of acronyms. (You don't *have* to
+% use this package - unless you have a lot of acronyms, you may feel that
+% such package management of them is bit of an overkill.)
+% Do note that the acronym environment (which lists acronyms) will have a
+% problem when used under IEEEtran.cls because acronym.sty relies on the
+% description list environment - which IEEEtran.cls has customized for
+% producing IEEE style lists. A workaround is to declared the longest
+% label width via the IEEEtran.cls \IEEEiedlistdecl global control:
+%
+% \renewcommand{\IEEEiedlistdecl}{\IEEEsetlabelwidth{SONET}}
+% \begin{acronym}
+%
+% \end{acronym}
+% \renewcommand{\IEEEiedlistdecl}{\relax}% remember to reset \IEEEiedlistdecl
+%
+% instead of using the acronym environment's optional argument.
+% The latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/acronym
+
+
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/pkg/algorithms
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/pkg/algorithmicx
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/array
+
+
+%\usepackage{mdwmath}
+%\usepackage{mdwtab}
+% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
+% especially mdwmath.sty and mdwtab.sty which are used to format equations
+% and tables, respectively. The MDWtools set is already installed on most
+% LaTeX systems. The lastest version and documentation is available at:
+% http://www.ctan.org/pkg/mdwtools
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+%\usepackage{eqparbox}
+% Also of notable interest is Scott Pakin's eqparbox package for creating
+% (automatically sized) equal width boxes - aka "natural width parboxes".
+% Available at:
+% http://www.ctan.org/pkg/eqparbox
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\ifCLASSOPTIONcompsoc
+%  \usepackage[caption=false,font=footnotesize,labelfont=sf,textfont=sf]{subfig}
+%\else
+%  \usepackage[caption=false,font=footnotesize]{subfig}
+%\fi
+% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
+% for subfigure.sty, the latter of which is no longer maintained and is
+% incompatible with some LaTeX packages including fixltx2e. However,
+% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
+% which will override IEEEtran.cls' handling of captions and this will result
+% in non-IEEE style figure/table captions. To prevent this problem, be sure
+% and invoke subfig.sty's "caption=false" package option (available since
+% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
+% handling of captions.
+% Note that the Computer Society format requires a sans serif font rather
+% than the serif font used in traditional IEEE formatting and thus the need
+% to invoke different subfig.sty package options depending on whether
+% compsoc mode has been enabled.
+%
+% The latest version and documentation of subfig.sty can be obtained at:
+% http://www.ctan.org/pkg/subfig
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure.
+% Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
+% corrections already built into the system in which case a warning will
+% be issued if an attempt is made to load fixltx2e.sty as it is no longer
+% needed.
+% The latest version and documentation can be found at:
+% http://www.ctan.org/pkg/fixltx2e
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/stfloats
+% Do not use the stfloats baselinefloat ability as the IEEE does not allow
+% \baselineskip to stretch. Authors submitting work to the IEEE should note
+% that the IEEE rarely uses double column equations and that authors should try
+% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
+% packages (also by Sigitas Tolusis) as the IEEE does not format its papers in
+% such ways.
+% Do not attempt to use stfloats with fixltx2e as they are incompatible.
+% Instead, use Morten Hogholm'a dblfloatfix which combines the features
+% of both fixltx2e and stfloats:
+%
+% \usepackage{dblfloatfix}
+% The latest version can be found at:
+% http://www.ctan.org/pkg/dblfloatfix
+
+
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley, Jeff Goldberg and 
+% Axel Sommerfeldt. This package may be useful when used in conjunction with 
+% IEEEtran.cls'  captionsoff option. Some IEEE journals/societies require that
+% submissions have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from "marking" where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.4.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/pkg/endfloat
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a 
+% page by themselves.
+
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/url
+% Basically, \url{my_url_here}.
+
+
+% NOTE: PDF thumbnail features are not required in IEEE papers
+%       and their use requires extra complexity and work.
+%\ifCLASSINFOpdf
+%  \usepackage[pdftex]{thumbpdf}
+%\else
+%  \usepackage[dvips]{thumbpdf}
+%\fi
+% thumbpdf.sty and its companion Perl utility were written by Heiko Oberdiek.
+% It allows the user a way to produce PDF documents that contain fancy
+% thumbnail images of each of the pages (which tools like acrobat reader can
+% utilize). This is possible even when using dvi->ps->pdf workflow if the
+% correct thumbpdf driver options are used. thumbpdf.sty incorporates the
+% file containing the PDF thumbnail information (filename.tpm is used with
+% dvips, filename.tpt is used with pdftex, where filename is the base name of
+% your tex document) into the final ps or pdf output document. An external
+% utility, the thumbpdf *Perl script* is needed to make these .tpm or .tpt
+% thumbnail files from a .ps or .pdf version of the document (which obviously
+% does not yet contain pdf thumbnails). Thus, one does a:
+% 
+% thumbpdf filename.pdf 
+%
+% to make a filename.tpt, and:
+%
+% thumbpdf --mode dvips filename.ps
+%
+% to make a filename.tpm which will then be loaded into the document by
+% thumbpdf.sty the NEXT time the document is compiled (by pdflatex or
+% latex->dvips->ps2pdf). Users must be careful to regenerate the .tpt and/or
+% .tpm files if the main document changes and then to recompile the
+% document to incorporate the revised thumbnails to ensure that thumbnails
+% match the actual pages. It is easy to forget to do this!
+% 
+% Unix systems come with a Perl interpreter. However, MS Windows users
+% will usually have to install a Perl interpreter so that the thumbpdf
+% script can be run. The Ghostscript PS/PDF interpreter is also required.
+% See the thumbpdf docs for details. The latest version and documentation
+% can be obtained at.
+% http://www.ctan.org/pkg/thumbpdf
+
+
+% NOTE: PDF hyperlink and bookmark features are not required in IEEE
+%       papers and their use requires extra complexity and work.
+% *** IF USING HYPERREF BE SURE AND CHANGE THE EXAMPLE PDF ***
+% *** TITLE/SUBJECT/AUTHOR/KEYWORDS INFO BELOW!!           ***
+\newcommand\MYhyperrefoptions{bookmarks=true,bookmarksnumbered=true,
+pdfpagemode={UseOutlines},plainpages=false,pdfpagelabels=true,
+colorlinks=true,linkcolor={black},citecolor={black},urlcolor={black},
+pdftitle={Bare Demo of IEEEtran.cls for Computer Society Journals},%<!CHANGE!
+pdfsubject={Typesetting},%<!CHANGE!
+pdfauthor={Michael D. Shell},%<!CHANGE!
+pdfkeywords={Computer Society, IEEEtran, journal, LaTeX, paper,
+             template}}%<^!CHANGE!
+%\ifCLASSINFOpdf
+%\usepackage[\MYhyperrefoptions,pdftex]{hyperref}
+%\else
+%\usepackage[\MYhyperrefoptions,breaklinks=true,dvips]{hyperref}
+%\usepackage{breakurl}
+%\fi
+% One significant drawback of using hyperref under DVI output is that the
+% LaTeX compiler cannot break URLs across lines or pages as can be done
+% under pdfLaTeX's PDF output via the hyperref pdftex driver. This is
+% probably the single most important capability distinction between the
+% DVI and PDF output. Perhaps surprisingly, all the other PDF features
+% (PDF bookmarks, thumbnails, etc.) can be preserved in
+% .tex->.dvi->.ps->.pdf workflow if the respective packages/scripts are
+% loaded/invoked with the correct driver options (dvips, etc.). 
+% As most IEEE papers use URLs sparingly (mainly in the references), this
+% may not be as big an issue as with other publications.
+%
+% That said, Vilar Camara Neto created his breakurl.sty package which
+% permits hyperref to easily break URLs even in dvi mode.
+% Note that breakurl, unlike most other packages, must be loaded
+% AFTER hyperref. The latest version of breakurl and its documentation can
+% be obtained at:
+% http://www.ctan.org/pkg/breakurl
+% breakurl.sty is not for use under pdflatex pdf mode.
+%
+% The advanced features offer by hyperref.sty are not required for IEEE
+% submission, so users should weigh these features against the added
+% complexity of use.
+% The package options above demonstrate how to enable PDF bookmarks
+% (a type of table of contents viewable in Acrobat Reader) as well as
+% PDF document information (title, subject, author and keywords) that is
+% viewable in Acrobat reader's Document_Properties menu. PDF document
+% information is also used extensively to automate the cataloging of PDF
+% documents. The above set of options ensures that hyperlinks will not be
+% colored in the text and thus will not be visible in the printed page,
+% but will be active on "mouse over". USING COLORS OR OTHER HIGHLIGHTING
+% OF HYPERLINKS CAN RESULT IN DOCUMENT REJECTION BY THE IEEE, especially if
+% these appear on the "printed" page. IF IN DOUBT, ASK THE RELEVANT
+% SUBMISSION EDITOR. You may need to add the option hypertexnames=false if
+% you used duplicate equation numbers, etc., but this should not be needed
+% in normal IEEE work.
+% The latest version of hyperref and its documentation can be obtained at:
+% http://www.ctan.org/pkg/hyperref
+
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+%
+% paper title
+% Titles are generally capitalized except for words such as a, an, and, as,
+% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
+% not capitalized unless they are the first or last word of the title.
+% Linebreaks \\ can be used within to get better formatting as desired.
+% Do not put math or special symbols in the title.
+\title{SemiBoost:适用于半监督学习的Boosting算法}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+%
+%\IEEEcompsocitemizethanks is a special \thanks that produces the bulleted
+% lists the Computer Society journals use for "first footnote" author
+% affiliations. Use \IEEEcompsocthanksitem which works much like \item
+% for each affiliation group. When not in compsoc mode,
+% \IEEEcompsocitemizethanks becomes like \thanks and
+% \IEEEcompsocthanksitem becomes a line break with idention. This
+% facilitates dual compilation, although admittedly the differences in the
+% desired content of \author between the different types of papers makes a
+% one-size-fits-all approach a daunting prospect. For instance, compsoc 
+% journal papers have the author affiliations above the "Manuscript
+% received ..."  text while in non-compsoc journals this is reversed. Sigh.
+
+\author{Pavan~Kumar~Mallapragada,~\IEEEmembership{Student~Member, ~IEEE,}
+					Rong~Jin, ~\IEEEmembership{Member,~IEEE,}
+					Anil~K.~Jain,~\IEEEmembership{Fellow,~IEEE,}
+					and~Yi~Liu,~\IEEEmembership{Student~Member,~IEEE}%
+        
+\IEEEcompsocitemizethanks{\IEEEcompsocthanksitem The authors are with the Department of Computer Science and Engineering, Michigan State University, 3115, Engineering Building, East Lansing, MI 48823.\protect\\
+% note need leading \protect in front of \\ to get a newline within \thanks as
+% \\ is fragile and will error, could use \hfil\break instead.
+E-mail: \{pavanm, rongjin, jain\}@cse.msu.edu, liuyiyi@gmail.com.
+}% <-this % stops a space
+\thanks{Manuscript received April 19, 2005; revised August 26, 2015.}
+\thanks{Manuscript received 28 Oct. 2007; revised 3 June 2008; accepted 8 Sept. 2008; published online 16 Sept. 2008.}
+\thanks{Recommended for acceptance by J. Matas.}
+\thanks{For information on obtaining reprints of this article, please send e-mail to tpami@computer.org, and reference IEEECS Log Number TPAMI-2007-10-0729.}
+\thanks{Digital Object Identifier no. 10.1109/TPAMI.2008.235.}
+}
+
+% note the % following the last \IEEEmembership and also \thanks - 
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+% 
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
+
+
+
+% The paper headers
+\markboth{Journal of \LaTeX\ Class Files,~Vol.~14, No.~8, August~2015}%
+{Shell \MakeLowercase{\textit{et al.}}: Bare Advanced Demo of IEEEtran.cls for IEEE Computer Society Journals}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+% 
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+
+% The publisher's ID mark at the bottom of the page is less important with
+% Computer Society journal papers as those publications place the marks
+% outside of the main text columns and, therefore, unlike regular IEEE
+% journals, the available text space is not reduced by their presence.
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2015 IEEE}
+% or like this to get the Computer Society new two part style.
+%\IEEEpubid{\makebox[\columnwidth]{\hfill 0000--0000/00/\$00.00~\copyright~2015 IEEE}%
+%\hspace{\columnsep}\makebox[\columnwidth]{Published by the IEEE Computer Society\hfill}}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark (Computer Society journal
+% papers don't need this extra clearance.)
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+% for Computer Society papers, we must declare the abstract and index terms
+% PRIOR to the title within the \IEEEtitleabstractindextext IEEEtran
+% command as these need to go into the title area created by \maketitle.
+% As a general rule, do not put math, special symbols or citations
+% in the abstract or keywords.
+\IEEEtitleabstractindextext{%
+\begin{abstract}
+半监督学习已经在模式识别和机器学习方面引起了巨大的关注。在这之前的大多数研究关注于设计特殊的算法，用于有效地利用已标记数据与未标记数据的结合。我们的目标是，通过使用可用的未标记样本，提高所有监督学习算法的分类准确度。区分于现有流行的方法，我们把这个难题称作半监督提升问题。基于一个监督学习算法，我们设计了一个偏半监督学习算法，而且利用未标记数据提升了它的性能。当我们需要训练一个监督学习算法，且只有非常有限的已标记数据和未标记数据的时候，这个问题就变得非常重要。我们提出了一个适用半监督学习的boosting框架，称之为SemiBoost。我们所推荐的半监督学习方法的主要优点是：1）在有大量未标记数据的情况下，所有的监督学习算法都可以得到性能上的提升，2）通过迭代的boosting算法可以实现高效率计算，3）在训练分类模型的时候利用流形假设和聚类假设。在有大量未标记数据的情况下，我们对16个不同的数据集和文字分类进行了实证研究，结果表明，几种常用的监督学习算法的性能都得到了提升。我们也证实了，SemiBoost算法可以与当代最先进的半监督学习算法相媲美。
+\end{abstract}
+
+% Note that keywords are not normally used for peerreview papers.
+\begin{IEEEkeywords}
+机器学习, 半监督学习, 半监督提升, 流形假设, 聚类假设, boosting.
+\end{IEEEkeywords}}
+
+
+% make the title area
+\maketitle
+
+
+% To allow for easy dual compilation without having to reenter the
+% abstract/keywords data, the \IEEEtitleabstractindextext text will
+% not be used in maketitle, but will appear (i.e., to be "transported")
+% here as \IEEEdisplaynontitleabstractindextext when compsoc mode
+% is not selected <OR> if conference mode is selected - because compsoc
+% conference papers position the abstract like regular (non-compsoc)
+% papers do!
+\IEEEdisplaynontitleabstractindextext
+% \IEEEdisplaynontitleabstractindextext has no effect when using
+% compsoc under a non-conference mode.
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+\ifCLASSOPTIONcompsoc
+\IEEEraisesectionheading{\section{Introduction}\label{sec:introduction}}
+\else
+\section{Introduction}
+\label{sec:introduction}
+\fi
+% Computer Society journal (but not conference!) papers do something unusual
+% with the very first section heading (almost always called "Introduction").
+% They place it ABOVE the main text! IEEEtran.cls does not automatically do
+% this for you, but you can achieve this effect with the provided
+% \IEEEraisesectionheading{} command. Note the need to keep any \label that
+% is to refer to the section immediately after \section in the above as
+% \IEEEraisesectionheading puts \section within a raised box.
+
+
+
+
+% The very first letter is a 2 line initial drop letter followed
+% by the rest of the first word in caps (small caps for compsoc).
+% 
+% form to use if the first word consists of a single letter:
+% \IEEEPARstart{A}{demo} file is ....
+% 
+% form to use if you need the single drop letter followed by
+% normal text (unknown if ever used by the IEEE):
+% \IEEEPARstart{A}{}demo file is ....
+% 
+% Some journals put the first two words in caps:
+% \IEEEPARstart{T}{his demo} file is ....
+% 
+% Here we have the typical use of a "T" for an initial drop letter
+% and "HIS" in caps to complete the first word.
+半监督学习在模式识别和机器学习上引起了广泛关注。虽然半监督学习分类是一个相对新颖的领域，但是，早在几十年前，使用未标记的样本来进行预测的想法就被提出来了。对半监督学习的研究，最开始被认为是Scudders在1965年进行的关于“自学习”的工作，早些年Robbins和Monro在顺序学习上的研究也可以被看作跟半监督学习有关的研究。半监督学习，尤其是半监督分类的主要思想是，同时利用已标记和未标记数据来训练一个分类模型。现在，每天都有大量的数据正在因文章、文件、图像、电子邮件等媒体而产生，这些数据的大多数都是没有被分类，或者说是没有被标记的。因此，通过监督学习方法来使个人新闻过滤、电子垃圾邮件过滤、文本分类和图像分类等软件实现自动化，是非常困难的。现实中通常只有一小部分的已标记数据是可用的， 比如说，基于某个用户已标记为“喜欢”的文章，或者说该用户标记为“垃圾”的邮件，但是另外一边有更大量的数据没有被标记，这造成的结果就是，人们急需能够利用少量的已标记数据，同时又能结合大量的未标记数据和有助于构建有效的分类系统的算法。\\
+根据算法潜在的基本假设，现存的半监督学习分类算法可以分为两大类。一种是基于流形假设的算法，这种算法假设数据来自一个高维空间，但是同时也可以用一个低维空间来表示。通常地，数据的基本几何图形，是通过将数据表示为图表、将样本表示为节点、样本之间的成对相似性作为边权重来捕获的。一些基于图的算法，比如说标签传播算法, 马可洛夫随机游走,图割算法, 频谱图传感器,还有低密度分离等算法，经常在文献中被推荐，就是基于此流形假设的。\\
+还有一些被推荐用于半监督学习的自然归纳的算法。这些算法通常是基于聚类假设。聚类假设表明具有高度相似性的样本一定属于同一类标签。换一种说法就是，类之间的决策边界必须穿过低密度区域。这个假设允许未标记数据来正则化决策边界，这将反作用于影响分类模型的选择，许多像TSVM、半监督SVM这样成功的半监督学习算法都是采取了这个方法。这些算法基于决策边界假定模型，结果就变成一个归纳的分类器。\\
+流形正则化也是一种归纳方法，但是其基于流形假设。流行正则化试图在数据集上构建一个最大化边界的分类器，同时最小化相应的相似矩阵的不连续性，这是通过往一个基于SVM的目标函数里添加一个基于图的正则项来实现的。一个与此相关且名为“LIAM”的算法，使用将先验度量信息编码在图拉普拉斯算子的方法来正则化SVM决策边界，同时这个算法有一个快速的优化算法。\\
+大多数的半监督学习方法特意地设计能够有效利用已标记和未标记数据的算法。然而，情况通常是这样的：使用者的应用中已经有一个非常适合的监督学习算法，他所需要的是通过利用可行的未标记数据来提升算法的性能。从这点出发，更实际的方法是设计一种利用未标记样本的技术，而不考虑底层的学习算法。这样的方法能够适应于分类器的基于任务选择，同时能够有效地利用未标记数据。区别于我们所研究的标准的半监督学习问题，我们把这种，通过使用未标记数据来提高任何一种监督学习算法的性能的难题，称作半监督提升。\\
+为了实现半监督提升，我们推出了一种boosting框架，我们将其称作“SemiBoost”，用于通过未标记数据实现某中监督学习算法的提升。跟大多数的boosting算法相似，SemiBoost迭代地提高分类的准确度。在每一次迭代中，选择一部分的未标记样本，使用特定的监督学习算法来训练出一个新的分类模型。在最后，每次迭代训练所得的模型线性组合在一起，形成一个最终的分类模型。SemiBoost过程的概览呈现在图1中（图1为原文的Fig 1.）设计SemiBoost的主要难点在于：1)如何对未标记的例子进行抽样，用于每次迭代并训练出新的分类模型；2）所被选择的未标记例子应该被分配成什么类标签。值得注意的是，不像监督boosting算法那样，我们选择难以分类的已标记示例，SemiBoost需要在每次迭代过程中选择未标记的示例。\\
+一个解决上述问题的方法是，利用聚类设想和大边距标准。我们可以通过选择具有最高分类置信度的未标记示例来提高分类界限，并为它们分配由当前分类器预测的类标签。这些被分配的标签被称作伪标签。已标记的数据和被选中的被标上伪标签的数据被用于下一次迭代，以便产生第二个分类器。这个方法被类似于自学习、ASSEMBLE和半监督MarginBoost等采用。然而，这个策略的一个问题是，这些带有被预测的类标签的示例的引入可能仅仅起到加大分类边距的作用，并没有给分类器提供任何新奇的信息。因为被选中的未标记示例是可以被置信分类的，他们通常是远离决策边界的。这样的结果是，使用被选中的未标记示例进行训练得出的分类器，和原来使用已标记示例训练出来的分类器很大可能上会共享决策边界。这是因为，通过调整决策边界，有较高分类置信度的示例会获得更高的置信度，这意味着我们可能需要额外的指引和最大化边距准则来提高基分类器的性能。\\
+为了解决上面的这个问题，我们推荐在每一次迭代的过程中，使用成对相似性测量来指引未标记示例的选择，同时也给他们分配类标签。对于每一个没有标记的示例$x_i$，我们分别计算将$x_i$分配为正类和负类的置信度。这两个置信度的计算基于强化后的分类器的预测结果和不同示例之间的相似度。我们接着在每次迭代中，选择拥有最高分类置信度的示例，再带上已标记的示例训练出一个新的分类模型。现有的分类模型将会线性组合在一起形成一个新的分类模型，用于更好地预测结果。需要注意的是，我们推荐的这个方法跟利用流形预测的基于图的半监督学习方法密切相关。接下来这一结将会讨论现存的半监督学习方法和他们跟SemiBoost之间的关系。
+
+
+\section{RELATED WORK}
+表1（表1为原文pdf中的TABLE 1）简要地展示了目前存在地半监督学习方法和他们底层的假设。
+第一列展示的是算法对数据的假设；第二列是这些半监督学习方法的名字和引用；紧接着第三列是简要的方法描述；第四列说明算法是自然归纳（I）还是转导的（T）。
+一个归纳算法可以被用作预测在训练过程中不曾出现的样本的标签（无论是已标记的还是未标记的）；所谓转导算法限于用来预测那些在训练过程中被使用的未标记的样本的标签。\\
+基于图的方法将已标记和未标记示示例表示为一个连接图，连接图中，每一个示例都用一个节点来表示，如果两个节点之间有非常大的相似性的话，这对节点会通过一条边连接起来。
+属于这类方法中比较出名的有，基于谐波函数的方法、光谱图传感器方法、基于高斯处理的方法、流形正则化还有标签传播方法。
+使用监督类标签和图结构，最小化未标记示例的不一致性，可以找到这些示例的最佳类标签。\\
+二次准则是一个很受欢迎的方法，它定义了标签$y=\{y_i\}^n_{i=1}$在样本$\{x_i\}^n_{i=1}$之上的不一致性和成对相似性$S_{i,j}$\\
+\begin{center}
+\[F(y)=\sum_{i=1}^n\sum^n_{j=1}S_{i,j}(y_i-y_j)^2=y^TLy,\]
+\end{center}
+公式中，L是组合图拉普拉斯算子。
+给定一个半监督设定，在上面的一致性测量中，仅假设已知一些标签，剩下的标签都是位置的。
+我们的任务是给未知的标签赋值，使得整体的不一致性最小化。
+在[6]中的方法认为这种情况下应有$y_i\in\{\pm1\}$时，于是制定了一个离散最优化问题，使用最小割方法解决。
+然而，最小割易于使解决方案退化，因此，目标函数是使用一种混合整数编程方法来最小化的，这种编程方法需要大量的计算资源，经常使很多人望而却步。
+在好几种方法中，对目标函数在$y_i\in[0,1]$时的持续松弛都有被考虑到，这是通过马可洛夫随机场、高斯随机场和谐波函数来解决的。\\
+我们推出的这个框架利用了半监督学习中的成对相似性，从某种意义上说，这是于基于图的方法是密切相关的。
+我们所提出的这个方法中使用的不一致性度量，遵循了类似的定义，除了使用指数代价而不是平方代价的函数来违反标签。
+跟大多数的基于图方法不同，我们通过从未标记和已标记示例中学习，创造了一个特别的分类器模型。
+这对于半监督提升来说尤为重要，因其目标是使用大量的未标记数据实现对监督学习算法的提升。\\
+基于聚类假设的方法利用未标记数据来正则化决策边界。
+特别情况下，穿过低密度数据区域地决策边界，往往被认为是被未标记示例稠密包围的。
+这些方法都特别地扩展了SVM或者是相关得最大化边距分类器，而且，对于决策树等非基于边距的分类器来说不易于扩展。
+这类方法有：转导支持向量机（TSVM）、半监督支持向量机（S3VM）还有具有零类噪声模型的高斯过程等。
+另一方面，我们推荐的算法是一个能使基分类器很好地适应特定任务的普通方法。\\
+最后，我们强调，这个方法跟用于半监督学习的集成方法家族是密切相关的。
+在类似于AdaBoost等算法大获成功后，集成方法在监督分类领域中受到热烈的欢迎。
+集成算法的半监督对应物是基于聚类假设的，主要的示例包括ASSEMBLE[16]，还有半监督MarginBoost(SSMB)[17]。
+这两个算法的工作原理都是，给未标记样本分配伪标签，然后将这些新标记的数据作为训练下一个新的监督分类器时所需的样本。
+SSMB和ASSEMBLE都是基于边距boosting算法，他们通过下面这个公式来最小化成本函数：
+\begin{center}
+\[J(H)=C(y_iH(x_i))+C(\vert H(x_i)\vert),\]
+\end{center}
+公式中，H是构建中的集成分类器，C是单调递减的成本函数。
+$y_iH(x_i)$这一项对应了已标记样本的边距定义。
+边距的定义包含对未标记样本来说不可用的真实标签$y_i$。
+ASSEMBLE中定义了像$\vert H(x_i)\vert$这样的伪边距，在SSMB中则为$H(x_i)^2$，同时考虑到$y_i\in\{\pm1\}$这一事实，这样在目标函数中可以省去$y_i$这一项。
+然而，这个算法依赖于每次迭代时现有的集成分类器所预测出来的伪标签。
+相反地，我们推荐的算法，结合了相似度信息和分类器预测结果，获得更多可靠的伪标签，这跟现有的方法非常地不同。
+另外一边，SSMB需要基学习器本身就是一个半监督算法，因此，SSMB用于解决与我们所推荐的算法相反的boosting半监督算法问题。\\
+在本质上，SemiBoost算法结合了基于图和集成方法的优点，产生了一个在半监督学习上更加普遍而且更加强大的方法。%
+\section{SEMI-SUPERVISED BOOSTING}
+我们首先来正式描述一下半监督提升，然后展示SemiBoost算法%
+\subsection{Semi-Supervised Improvement}
+使用$D=\{x_1, x_2, ... , x_n\}$来表示整个数据集，包括已标记的和未标记的实例。
+假设首先有$n_l$个实例已被标记，在$y_l=(y_1^l,y_2^l,...,y_{nl}^l)$中，每一个类标签$y_i^l$都是+1或者-1。
+我们使用$y_u=(y_1^u,y_2^u,...,y_{n_u}^u)$来表示估算出的未标记实例的类标签，此处$n_u=n-n_l$。整个数据集的标签表示为$y=[y_l;y_u]$。
+对称相似矩阵表示为$S=[S_{i,j}]_{n\times n}$，$S_{i,j}\geq0$代表着$x_i$和$x_j$之间的相似性。
+而且，$S^{ll}$表示对应$n_l$个已标记实例的相似矩阵的$n_l\times n_l$子矩阵，同时$S^{lu}$表示已标记和未标记实例的$n_l\times n_u$子矩阵。
+$S^{uu}$和$S^{ul}$的子矩阵可以相应地定义。
+用$A$表示为给定的监督学习算法。
+半监督提升的目标是，把$A$当做一个黑盒，使用未标记实例和成对相似性$S$来迭代地提高$A$的性能。
+在图2（对应原文pdf Fig.2）中给出了一个用于半监督提升的SemiBoost算法的简要概述。\\
+将半监督提升问题和现存的半监督分类方法区分开来是很重要的。
+就像在第二节中讨论的那样，任何集成算法的新分类器都必须依赖于伪标签。
+另一方面，基于图的算法使用样本之间的成对相似性，给未标记的实例分配标签，达到样本在相似度上的一致性。
+在半监督提升问题上，我们致力于构建一个能够像基于图方法那样利用未标记样本的集成分类器。
+\subsection{SemiBoost}
+为了提高给定的学习算法$A$，我们遵循boosting的核心思想，迭代地运行算法$A$。
+在每一次迭代中，算法$A$都学习到一个新的分类模型，而且在不同的迭代中的分类模型都将会被线性组合在一起，从而形成最终的分类模型。
+\subsubsection{Objective Function}
+必须根据这两个主要的准则给未标记实例分配标签：1)在未标记样本之中有高相似度的点必须分配到同样的标签；2)未标记样本如果跟一个已标记样本有高度相似性的话，那么未标记样本被分配该已标记样本的标签。
+我们的目标函数是$F(y, S)$包含了两个项：一个度量已标记和未标记实例$F_l(y,S)$之间的不一致性；另一个$F_u(y_u, S)$度量未标记实例之间的不一致性。\\
+受到谐波函数方法的启发，我们定义$F_u(y, S)$作为类标签$y$和相似度测量$S$之间的不一致性，也就是说：
+\begin{center}
+\begin{equation}
+F_u(y_u, S)=\sum^{n_u}_{i,j=1}S^{uu}_{i,j}exp(y^u_i-y^u_j)
+\end{equation}
+\end{center}
+许多使用相似性或者核矩阵的目标函数需要正半定核，这样才能保证目标函数的凸性。（比如说SVM）
+然而，由于$exp(x)$是一个凸函数，而且我们假设$S^{uu}_{i,j}$是非负的，不管相似矩阵的正定性如何，对于每个$i,j$来说，$F_u(y_u,S)$都是凸函数。
+这就出现了相似矩阵之间互不对称，而且不用改变目标函数的凸性。
+不对称相似矩阵在使用有向图进行分类问题建模的时候大有用处，而且在与文本分类有关的应用中有更好的表现。\\
+尽管如此，我们的方法还是可以用于一般的相似矩阵，我们假设提供的相似矩阵是对称的。
+上面的公式可以扩展成以下形式：
+\[F_u(y_u,S)=\frac{1}{2}\sum S^{uu}_{j,i}exp(y_j^u-y_i^u)+\frac 12\sum S^{uu}_{i,j}exp(y^u_i-y^u_j)\]
+同时根据$S$的对称性，我们可以得到
+\begin{center}
+\begin{equation}
+F_u(y_u,S)=\sum^{n_u}_{i,j=1}S^{uu}_{j,i}cosh(y_i^u-y_j^u)\end{equation}
+\end{center}
+此处$cosh(y_i-y_j)=(exp(-y_i+y_j)+exp(y_i-y_j))/2$是双曲线余弦函数。$cosh(x)$是一个凸函数，它的最小值在$x=0$时取得。
+通过使用$cosh(.)$函数重写该函数，我们可以发现在基于图拉普拉斯方法的二次惩罚因子和现在方法中的指数惩罚因子之间的联系。
+使用$cosh(.)$惩罚因子不仅有助于基于boosting算法的求导，同事也加大了分类边距。
+用于boosting算法的指数成本的效用是众所周知的[27]。\\
+已标记和未标记实例$F_l(y,S)$之间的不连续性定义为：
+\begin{center}
+\begin{equation}
+F_l(y,S)=\sum^{n_l}_{i=1}\sum^{n_u}_{j=1}S^{uu}_{i,j}exp(-2y^l_iy^u_j).
+\end{equation}
+\end{center}
+结合公式(1)和(3)可以得到以下的目标函数：
+\begin{center}
+\begin{equation}
+F(y,S)=F_l(y,S^{lu})+CF_u(y_u,S^{uu}).
+\end{equation}
+\end{center}
+引入常量C用于权衡已标记和未标记数据的重要性。
+给定在(4)中的目标函数的最优类标签$y_u$，可以通过最小化$F$来取得\\
+使用$\hat{y}_i^l,i=1,...,n_l$来表示学习算法在训练数据中的已标记实例上预测得到的标签。注意，在公式(4)中，没有一项对应了预测得到的标签和真实标签之间的不一致性，也就是$F_{ll}=\sum\nolimits^{n_l}_{i=1}exp(y_i^l,\hat{y}^l_i)$。把这一项添加到公式中，当没有未标记样本时，可以使算法专攻于AdaBoost。
+然而在实践中，可用的已标记数据数量有限，$F_{ll}$这一项通常要比$F_l$和$F_u$不那么重要，因此在公式(4)中也就被去除了。\\
+选择一个更小的样本子集来训练分类器可能没那么有效。所以，当前的方法是，将已标记数据的预测包含在约束的形式中，这也就能在每次迭代中，有效利用所有的已标记数据来为训练分类器。
+这个问题现在可以正式地表示为如下：
+
+\begin{center}
+\begin{equation}
+  \begin{split}
+  \min \quad &F(y,S) \\
+  s.t. \quad &\hat{y}^l_i=y^l_i,i-1,\ldots,n_l
+  \end{split}
+\end{equation}
+\end{center}
+
+这是一个凸优化问题，也就是说该问题能够使用数字方法有效解决。
+但是，我们的目标是，通过未标记数据和相似矩阵$S$，提升给定的学习算法$A$，所以我们推出的boosting算法能够有效地最小化目标函数$F$。
+下面是推导出该boosting算法的过程：
+\begin{itemize}
+\item 未标记实例$y_i^u$的标签由在相对应的数据样本上集成预测出的标签来代替
+\item 使用边界最优化方法寻找集成分类器，最小化目标函数
+\item 边界进一步被简化，以获得抽样方案和其他需要的参数
+\end{itemize}
+上面提到的目标函数和几个基于图的、流形正则化和集成方法有很密切的相关性。在本文更长篇的版本中的附录F和G，我们讨论了SemiBoost和被广泛使用过的几种半监督算法之间的关系。
+
+\subsection{Algorithm}
+我们使用边界最优化方法派生出了这个boosting算法，另外，在[29]中介绍了使用传统的函数梯度方法来推导boosting算法
+这种方法也可以被视为能通过线性函数逼近原有的目标函数的一种松弛。
+然而，这样一种方法包含了参数“步长”的规范。
+在我们的推导中，步长是自动确定的，所以这就解决了确定步长的问题。
+SemiBoost算法在图3（原文pdf中的Fig.3）中有简要的总结。\\
+用$h^{(t)}(x):\chi \rightarrow \{-1, +1\}$来表示才从算法$A$在第$t$迭代中中学习到的二分类模型。
+用$H(x):\chi\rightarrow IR$来表示经过$T$次迭代得到的组合分类模型。
+它是将$T$个分类模型线性组合在一起而得来的：
+\begin{center}
+\[ H(x)=\sum^T_{t=1}\alpha_th^{(t)}(x), \]
+\end{center}
+公式中$\alpha_t$是组合权重。在第$(T+1)$次迭代时，我们的目标是找到能有效最小化目标函数$F$的一个新的分类器$h(x)$和组合权重$\alpha$。\\
+现在问题变成了下面的最优化问题:
+\begin{center}
+\begin{equation}
+\begin{split}
+\argmin_{h(x),\alpha}\quad &\sum^{n_l}_{i=1}\sum^{n_u}_{j=1}S^{lu}_{i,j}exp(-2y^l_i(H_j+\alpha h_j))\\
+&+C\sum^{n_u}_{i,j=1}S^{uu}_{i,j}exp(H_i-H_j)exp(\alpha(h_i-h_j)) \\
+\end{split}
+\end{equation}
+\begin{equation}
+s.t.\quad h(x_i) = y^l_i,i=1,\ldots,n_l, 
+\end{equation}
+\end{center}
+公式中,$H_i\equiv H(x_i)$且$h_i\equiv h(x_i)$。\\
+这个表达式包含了变量$\alpha$和$h_i$的乘积，使其变得非线性，也因此变得很难优化。
+然而，这些限制能够通过包含所有的已标记样本到每个分类器的训练集中来实现。
+为了简化计算，我们构建了目标函数的上限，如命题1所述：
+\begin{prop}
+最小化公式（7）等价于最小化公式：
+\begin{equation}
+\overline{F}_1=\sum^{n_u}_{i=1}exp(-2\alpha h_i)p_i+exp(2\alpha h_i)q_i
+\end{equation}
+公式中：
+\begin{align}
+p_i &= \sum^{n_l}S^{ul}_{i,j}e^{-2H_i}\delta(y_j,1)+\frac{C}{2}\sum^{n_u}_{j=1}S^{uu}_{i,j}e^{H_j-H_i},\\
+q_i &= \sum^{n_l}_{j=1}S^{yl}_{i,j}e^{2H_i}\delta(y_j,-1)+\frac{C}{2}\sum^{n_u}_{j=1}S^{uu}_{i,j}e^{H_i-H_j}_{i,j},
+\end{align}
+且当$x=y$的时候有$\delta(x,y)=1$，当$x\neq y$时有$\delta(x,y)=0$
+\end{prop}
+
+证明速写：将$F(y,S)$替换为$H_i\leftarrow H_i +\alpha h_i$，重组各项，我们就能够得到想要的答案\\
+
+数量$p_i$和$q_i$可以分别被译作将$x_i$归类为正类或负类的置信度。\\
+在(8)中的表达式很难优化，因为权重$\alpha$和分类器$h(x)$是耦合在一起的。我们使用接下来定义的上限来简化这个问题：
+\begin{prop}
+最小化公式(8)等价与最小化此公式：
+\begin{equation*}
+\overline{F}_1\leq\sum^{n_u}_{i=1}(p_i+q_i)(e^{2\alpha}+e^{-2\alpha}-1)-\sum^{n_u}_{i=1}2\alpha h_i(p_i-q_i)
+\end{equation*}
+\end{prop}
+证明：见[28]
+我们把上面这个等式的上限定义为$\overline{F}_2$
+
+\begin{prop}
+为了最小化$\overline{F}_2$，实例$x_i$的最优的类标签$z_i$是$z_i=sign(p_i-q_i)$，同时其权重为$\vert p_i-q_i\vert$
+使$\overline{F}_1$最小的最优$\alpha$为：
+\begin{equation}
+\alpha = \frac{1}{4}ln\frac{\sum\nolimits^{n_u}_{i=1}p_i\delta(h_i,1)+\sum\nolimits^{n_u}_{i=1}q_i\delta(h_i,-1)}{\sum\nolimits^{n_u}_{i=1}p_i\delta(h_i,-1)+\sum\nolimits^{n_u}_{i=1}q_i\delta(h_i,1)}
+\end{equation}
+\end{prop}
+证明速写：在(11)中的表达式可以通过区分$\overline{F}_2$和$\alpha$和设置为0获得。
+观察可得，上面的函数在$h_i(p_i-q_i)$是线性的，如果我们选择$h_i=sign(p_i-q_i)$，那么函数就能被最小化，最大值为$\vert p_i-q_i\vert$\\
+命题1-3证明了在SemiBoost的求导中的松弛是可行的。在每次松弛中，“接触点”维持在目标函数和上限之间。结果是，这个过程保证了以下几点：1）目标函数在迭代过程中单调递减；2）最终的方案收敛到一个极小值。在[30]中可见更多细节。命题3建立了一个boosting算法的关键因素。有了这些，SemiBoost算法可以以图3（原文pdf的Fig. 3）的形式展现出来。\\
+用$\epsilon_i$来表示分类器得出的权重的误差，则有：
+\begin{center}
+\begin{equation*}
+\epsilon_t=\frac{\sum^{n_u}_{i=1}p_i\delta(h_i,-1)+\sum\nolimits^{n_u}_{i=1}q_i\delta(h_i,1)}{\sum\nolimits_i(p_i+q_i)}
+\end{equation*}
+\end{center}
+
+在AdaBoost[29]中,$\alpha$可以表示为：
+\begin{center}
+\begin{equation}
+\alpha_t=\frac14ln(\frac{1-\epsilon_t}{\epsilon_t}),
+\end{equation}
+\end{center}
+
+这跟AdaBoost的权重因子非常地相似，它们仅仅不同在于是否存在常熟因子$\frac{1}{2}$。
+同时，如果AdaBoost遇到了基分类器的错误率要比随机错误率高的情况（也就是说$\epsilon_{t+1}\geq\frac{1}{2}$），它会返回当前的分类器$H_t$。
+这跟SemiBoost遇到的当$\alpha\leq0$就停止的情况时有直接对应关系的。
+
+从公式（11）（或者直接从公式（12））观察，我们可以看到这种情况仅仅会在分母大于分子的时候出现，也就是说，$\epsilon_{t+1}\geq\frac{1}{2}$是等价于$\alpha\leq0$。
+然而，在没有大量的分类器被训练过出来的情况下，这种条件很难满足，通常有一个参数用来定义要使用的分类器的个数。
+以往的经验告诉我们，固定数量（比如说20）的分类器能够给AdaBoost带来更好的性能[27]\\
+
+在SemiBoost中使用的样本计划跟AdaBoost的有很大的不同。AdaBoost知道数据的标签，而且也因此能够基于上一次迭代地结果，增加或减少分配到每个样本上的权重。
+在SemiBoost里面，对于未标记数据，我们没有掌握真实的标签，评估分类的难度都变得非常具有挑战性。
+然而，命题2给出的答案是，选择最具有置信度未标记数据样本对降低目标函数来说是最优解。
+直观上看，使用具有高置信度的标签无疑是一个很好的选择，因为他们在成对相似性信息和分类上是一致的。
+$p_i$和$q_i$的值在这几种情况下会变得很大：1）$x_i$不能置信地被分类出来，也就是说$\vert H_i \vert$很小，而且它的某个临近点已经被标记，这对应着公式（9）和（10）的第一项；2）实例$x_i$和一些已经被自信分类的未标记实例高度相似，也就是说，对于实例$x_j$有巨大的$s_{i,j}$和$\vert H_j \vert$。
+这对应着公式（9）和（10）中的第二项。
+这意味着相似度信息在样本选择的导向中扮演着一个极其重要的角色。与之相反，之前的方法像ASSEMBLE和SSMB的，样本只是被选择来仅仅提高$\vert H_i \vert$的值。\\
+
+类似于大多数的boosting算法，我们可以看到所推荐的半监督boosting算法指数级别地减少了原来的目标函数。
+结果可以用下面的理论来概括：\\
+\textbf{Theorem 1.}
+定义$\alpha_1, \ldots, \alpha_t$代表SemiBoost算法计算出来的组合权重。然后，在第$(t+1)$次迭代时的目标函数，也就是 $\overline{F}_{t+1}$的界限如下：
+\begin{center}
+\begin{equation*}
+F_{t+1}\leq\kappa_S exp(-\sum^t_{i=1}\gamma_i),
+\end{equation*}
+\end{center}
+
+其中：
+\begin{center}
+\begin{equation*}
+\kappa_S=[\sum^{n_u}_{i=1}(\sum^{n_l}_{j=1}S^{ul}_{i,j}+C\sum^{n_u}_{j=1}S^{uu}_{i,j})]
+\end{equation*}
+\end{center}
+
+同时$\gamma_i=log(cosh(\alpha_i))$.\\
+\textbf{Proof}见[28]\\
+上述定理表明，尽管在上面的命题中做出了松弛，目标函数还是遵循了指数级衰减。\\
+
+\textbf{Corollary 1.}就错误$\epsilon_t$而言，目标函数在第$(t+1)$次的表示方法为：
+$F_{t+1} \leq \kappa_S \prod\nolimits^t_{i=1}(\frac{1-\epsilon_i}{\epsilon_i})^{\frac{1}{4}}$\\
+\textbf{Proof Sketch.}可以通过替换定理1中的$\alpha_i$为公式（12）来验证。 \\
+
+在上面的求导过程中，我们限制了目标函数，这样一来分类器在已标记样本上的预测必定会与我们提供的真实标签相匹配。
+然而，如果真实的标签中噪点太多，半监督分类的结果可能不会达到最理想的状态。
+如果已标记数据的被预测出来的标签跟真实标签不符，那么可以通过增加一项惩罚项来推导出另外一个相似于SemiBoost的算法。
+在这篇论文中，我们假设给定的标签是正确的。
+这是合理假设，因为有非常少的已标记样本，确保他们的正确性并不会遇到太多的困难。
+
+\subsection{Implementation}
+\subsubsection{Sampling}
+就跟其他的boosting算法一样，取样组成了SemiBoost的最重要的部分。取样的准则通常考虑到下面的因素：1）有多少样本是必须要从未标记样本中选取出来进行训练的；2）必须进行的抽样分布是什么\\
+
+像AdaBoost这样的监督boost算法有可用的真实标签，这使得算法很容易地去选择或者不选择哪些样本。
+另一方面，在SemiBoost的迭代过程中分配的标签都是伪标签，而且很有可能是错误的。
+这就表明在SemiBoost算法工作中，我们应该从少数中选择最具有置信度的数据点。
+但是选择少量的样本可能会使得收敛的过程变得缓慢，同时选择过多的样本可能会包含一些无信息甚至很差劲的样本到训练集中去。当前的选择标准是：经验法则；选择样本中最有可能在实践中表现良好的10\%。
+从命题3中可得，要减少$\overline{F}_1$，选择使$\vert p_i-q_i \vert$的值增大的样本是较好的。
+这种选择给分类器提供了高度可靠的被分配伪标签的样本。取样可以通过下面的分布来完成：
+\begin{center}
+\begin{equation*}
+P_s(x_i)=\frac{\vert p_i - q_i \vert}{\sum\nolimits^{n_u}_{i=1}\vert p_i - q_i \vert}
+\end{equation*}
+\end{center}
+上面的$P_s(x_i)$是数据点$x_i$为来自转导集的样本的可能性。
+
+\subsubsection{Stopping Criterion}
+根据优化过程，SemiBoost会在$\alpha\leq0$的时候停止，也就意味着分类器的增加会提升目标函数的值而非降低。
+然而，$\alpha$的值在开始的时候减小得特别快，到最后，减小的速率会急剧下降，需要非常多次数的迭代才能将其变为负数。
+我们现在在集成中使用由经验得出的固定的分类器个数，定义为$T$，我们把$T$的值设置为20
+
+\subsubsection{Similarity Matrix}
+受到径向基在基于图方法中的成功的激励，我们决定使用径向基相似性。对于两个样本$x_i$和$x_j$来说，他们之间的相似性$S_{i,j}$可以通过$S_i,j=exp(-\Vert x_i - x_j\Vert^2_2/\delta^2)$来计算，此处$\delta$是控制径向基扩散程度的缩放参数。
+众所周知，$\delta$的选择对于算法的整体性能有非常重要的影响[18]。我们把对于相似性值的缩放参数定在第十个百分位到第一百个百分位，以10步长，$\mu$设置为相似矩阵$S$的平均值。实验证明，在$\sigma$的选择范围内，转导和归纳方法的性能都是稳定的。
+这个属性是我们一直想要得到的，毕竟考虑到选择一个正确的缩放参数是一件困难的事情。
+
+\section{RESULTS AND DISCUSISON}
+SemiBoost专注的事情是使用未标记数据来提高任何给定的监督分类器，因此我们主要的目标是，根据基分类器的归纳性能的提升，对SemiBoost进行评估。\\
+
+一个使用了SemiBoost和“ring-norm”数据集的监督学习器的性能提升在图4（原文pdf中Fig. 4）中所展示。
+整个数据集有两个类，每一类有500个样本。
+图中每个类有10个已标记样本。
+实线代表着决策边界，黑暗和明亮的区域代表着两个类区域。
+SemiBoost在每次迭代中的性能都在每幅图下的括号中。
+图4a，4b，4c展示了SemiBoost在前三次迭代中获得的分类器，图4d展示了经过12次迭代的最终分类器。
+
+\subsection{Data Sets}
+我们使用了16个不同的数据集来评估SemiBoost：4个[9]中提供的基准数据集，10个UCI数据集，还有2个用于脸部种族识别和文本分类的数据集。
+由于SemiBoost适用于二分类问题，所以我们从基准数据集中选择了二分类数据及。UCI数据集中的多类数据也通过选择最多的两类的方法被转化成二类数据集。数据集通过去除有特征损失、对分类特征进行二进制加密、使用PCA降维以保持95\%的方差等方法进一步处理。
+所选数据集名称、选中的类中的样品数量$n$、还有数据集的维度$d$都总结在表2(Table 2)的第一列上。
+除了这些，我们还在文本识别问题上评估了我们的方法，结果将会在下一节展示。\\
+
+半监督学习算法的转导性能已经被研究得很彻底了[9, Chapter 21]，然而，半监督学习并不仅限于转导学习，同时，无样本扩展已经吸引了非常多人的注意。
+事实上，归纳学习非常的重要，因为在训练过程中仅仅只有一部分的未标记样本是可见的。
+在这些情况下，学习的真正效用在于给新的测试样本分类的能力。
+在这个目标的驱动下，我们对SemiBoost和当前最先进的三种归纳监督学习算法进行了比较。他们分别是转导SVM，归纳版的低密度分离（LDS）还有来自流形正则化方法的拉普拉斯SVM。
+LDS不是一个归纳算法因为它包含了基于图的维度下降步骤。
+我们使用LDS在转导集上预测的标签，在原有的数据上进行归纳分类器的训练。
+
+\subsection{Experimental Setup}
+实验的设置旨在研究，通过使用未标记数据、SemiBoost算法的表现和其他三种当前最先进的版监督学习算法后，监督学习器的性能提升。\\
+
+我们把分类准确性作为评估的度量。
+每个实验的百分比精度的平均偏差和标准偏差都是经过20次的反复试验得来的。
+20次重复的试验分别都是用不同的训练集和测试集的子集。
+为了测量归纳性能，我们把数据随机分割成两半。
+我们把这些乘作训练集和测试集。
+训练集有10个已标记点，剩下的都是未标记点。
+使用在测试集上的预测结果，评估SemiBoost在训练集上学习到的集成的分类器的性能。\\
+
+SemiBoost在未标记数据中取样，在每次迭代中给他们分配标签，并且构建一个分类器$h_t(x)$。
+这样构建的分类器的个数取决于迭代次数$T$。
+$T$设置为10，我们在公式（11）中计算得到的权重$\alpha_t$为负时停止boosting。
+我们把目标函数里$C$的值设置为已标记样本数目和未标记样本数目的比例$C=n_l/n_u$。\\
+
+第一个实验研究了三种不同的基分类器$(h_t(x))$在使用了SemiBoost之后的性能提升：DS, J48决策树算法(J48), 还有关于顺序最小优化算法的SVM。
+我们使用软件WEKA[33]来实现这三个分类器。
+所有的算法都是使用默认的参数运行（比如对SVM算法来说，默认的C和线性的核）
+我们选择决策树（DS和J48）还有SVM作为基分类器，是因为他们在监督学习文献中，可用于各种学习任务、表现为最为出色的三种基本分类器。
+
+\subsection{Results}
+\subsubsection{Choice of Base Classifier}
+表2（Table 2）将监督和三种基准半监督算法与SemiBoost算法进行了比较。
+DS，J48和SVM这三列给出了基分类器在归纳集上的表现。
+SB-X一列给出了SemiBoost在基分类器X上的表现。
+表2中的最后三列对应基准半监督学习算法TSVM，LDS，和LapSVM的归纳表现
+需要注意的是，我们的目的不是构造对某个分类问题最适用的分类器，而是说明SemiBoost可以在所有的分类问题上对监督分类器在性能上进行可能的提升。
+结果表明SemiBoost几乎在所有的数据集上，都显著地提升了三种基分类器的性能。
+使用一个独立样本配对的测试集，我们发现在SemiBoost的影响下，Decision Stump在12个数据集上的表现有了显著提升。对于J48而言，分类器在13个数据集上有了更好的效果，但是在房屋数据集上有了严重的退化。SVM则在7个数据集上有了显著提升，但是在其他三个数据中上有严重退化。
+在SVM性能退化的情况下，基准算法跟监督分类器相比起来表现得很差，这表明：未标记数据在这些场合并没有什么帮助。
+通过SemiBoost得到的集成分类器相对来说更加地稳定，因为它的分类精度跟基分类器相比起来有更低的标准误差。\\
+
+\subsubsection{Performance Comparison of SemiBoost with Benchmark Algorithms}
+我们比较了SemiBoost和另外三种不同的算法：TSVM，LapSVM，还有ILDS。SemiBoost所展示出来的性能能够与基准算法相媲美。
+SemiBoost几乎在所有的数据及上比ILDS表现得更好，而且在四个数据集上使DS获得了更加巨大的提升，在2个数据集上使SVM发挥更好。
+与TSVM相比，SemiBoost在十个数据集上使SVM更好，在8个数据集上使DS更好。
+同时，TSVM在三个数据集上在一段合理的时间内（20小时）难以收敛。
+SemiBoost和LapSVM的表现相差无几；SB-DS的性能在两个数据集上要优于LapSVM，在一个数据集上要差于LapSVM。
+类似地，SB-SVM和LapSVM显著地在8个情况中的3个要优于彼此。
+在一些数据集上，有基分类器要比SemiBoost表现更好。但是，在这些情况中，这个基分类器的性能都要比所有的半监督算法都要好。（比如说SVM在COIL2、vehicle、sat、还有房屋数据集上要优于所有的算法）
+这意味着，未标记数据不总是能够提升基分类器的性能的，或者更通俗地说，未标记数据不总能在学习过程中起到帮助作用。
+当一个基分类器优于半监督学习算法时，我们可以发现，与其他的算法比较起来，SemiBoost更加接近基准线。\\
+
+\subsubsection{Performance with Unlabeled Data Increment}
+图5展示了SemiBoost在UCI数据集上的表现。每一个数据集都被分成两等分，一份用作训练，另外一份用作归纳测试。
+训练集中的十个样本被标记。
+SVM在训练集上使用默认的参数进行训练，在测试集上的表现使用点线表示。
+训练集中未标记的实例以10\%的比例增加到已标记实例中。
+实线代表着SemiBoost算法在未标记数据增加的情况下的性能。
+虚线代表着SVM在所有被添加进去的样本被标记后的性能。
+同时可以观察到，SemiBoost的性能随着所添加的未标记数据的增多而提升，无论何时，这样的提升都是有可能存在的。
+
+\subsubsection{Sensitivity to Parameter $\sigma$}
+图6展示了SemiBoost—SVM在参数$\sigma$取不同的值时的不同性能。Sigma被选作相似性分布的第$\rho$个百分位。$\rho$在第十个到第一百个百分位之间。选择合适的$\sigma$的值是构造图最困难的部分之一，而且已经有好几种启发式方法被提出，用于决定$\sigma$。在上面所展示的大多数数据集上，SemiBoost在缩放参数方面是相对稳定的一个。
+然而，基于经验所得，一般推荐$\sigma$的选择在成对距离的第十到第二十个百分位之间。
+
+\subsubsection{Margin and Confidence}
+在这个实验中，我们凭经验证明了SemiBoost倾向于最大化平均边距。
+对于未标记数据，一个流行的关于边距的定义是$\vert H(x_i) \vert$[16], [17]。
+平均边距是$\vert H(x_i) \vert$在被用作训练的未标记数据上的经验平均值。
+图7a，7b，和7c相对应地展示了DS，J48，SVM这三个基分类器在optdigits数据集上的平均边距值。
+平均边距值随着迭代次数的增多而增大，无论选择的是哪个基分类器。
+然而，需要注意的是，即使在每一次迭代中测试错误不断减少，最小的边距可能不会一直增加。
+当训练集包含了一小部分的能够被完美地分类的已标记样本时，边距就会很大程度上取决于未标记数据。
+考虑到在未标记数据上的边距，在第一次迭代中分类器在所有未分类的数据上的边距为$\alpha_1$，而在第二次迭代中，最小的边距是
+$\min_{x_i}\vert H^{(2)}(x_i)\vert = \vert\alpha_1-\alpha_2\vert\leq\alpha_1=\min_{x_i}\vert H^{(1)}(x_i)\vert$。
+事实上，在所有的迭代中，最小边距的值可能被牺牲用于获得性能上的提升，也就是说，与相似矩阵达成一致。
+最近有资料表明，最大化最小边距不一定能使得分类器表现得更好。
+有人认为，在boosting的情况下，贪婪地最大化平均边距的方法要比最大化最小边距的方法更可取。
+图8是关于$H(x_i)$的值在每次迭代之后的分布。
+直方图中明亮和黑暗的条状分别代表类2和4，还有optdigits数据集。
+值得注意的是，随着迭代过程的进行，这些类变得越来越分开。
+
+\subsubsection{Convergence}
+根据定理1，SemiBoost指数级收敛。接下来的节证明了SemiBoost在一个样例数据集上的收敛。
+为了说明收敛，我们选择了optdigits数据集中最稠密了两个类，分别是数字2和数字4。
+图9a演示了在迭代过程中，目标函数在不断有新的分类器加入的情况下的变更。
+目标函数的变更是遵循指数下降的。
+图9b展示了$\alpha$在迭代过程中的值。
+最初，$\alpha$的值急速下降，接着在大概20次迭代之后，$\alpha$的值跟最初的分类器比起来就微不足道了。
+这表明了，尽管SemiBoost仍然需要更多迭代来达到收敛，但是新加进去的分类器在促进方面不会有重大的影响。
+图9c展示了SemiBoost以Decision Stump作为基分类器的精确度。
+
+\subsubsection{Comparison with AdaBoost}
+为了评估未标记数据在提高一个基分类器的性能的贡献，我们基于相同的基分类器（或者说弱学习器）、使用像在Section4.2中相似的实验步骤。
+表3展示了3个基分类器：Decision Stump、J48和SVM（第一列）在第一行的六个数据集上的性能。
+对每个分类器来说，头两行展示了分类器的归纳能力和它的使用10个已标记样本进行训练的加强版本（使用AdaBoost）。
+第三行展示了在未标记数据增加到已标记样本集中时SemiBoost的性能。
+第四和第五行，被标记为$large$和$AB-large$，展示了分类器的性能和它的在给用于SemiBoost的未标记数据分配标签之后的数据上训练过后得到的加强版本。\\
+
+从表3中，我们可以看到SemiBoost强化过后的分类器（SB-DS，SB-J48，和SB-SVM）都要显著地比仅使用已标记数据来强化的（AdaBoost）和没有使用boosting算法的分类器要好。
+当然，当所有的未标记数据都被分配标签后，分类器和他们的boosted版本在性能上都要显著地强于SemiBoost。
+跟基分类器相比较，AB-small在几个数据集上的归纳能力的下降，可能缘由过少训练样本导致的过拟合。
+SemiBoost中，不断增加的未标记数据就像一个正则化机制，避免了过拟合，也因此能够实现一个能力有所提高的分类器。
+
+\section{PERFORMANCE ON TEXT CATEGORIZATION}
+我们使用备受欢迎的20-newsgroups数据集来解决文本分类问题，进一步评估SemiBoost算法。
+我们用DS，J48和SVM作为基分类器进行了评估，解决使用了10个最受欢迎的数据集创建的二分类问题。
+注意，这次实验设置跟一些其他的关于半监督学习、采用一对多方法分类的研究有所不同。
+跟一对多的方法相比，一对一的评估方法有以下的优点：
+\begin{itemize}
+\item 在二分类任务中，监督分类器的最好性能之间有很大的差距。这使我们能够展示：当SVM对某个问题不是最好的分类器是，那么使用未标记数据来提升的SVM可能不是最好的半监督算法。
+\item 半监督学习算法依赖于特定的关于数据集、类的结构的假设。在一对多方法中，这些假设很可能都被违反了。举个例子，许多半监督算法假设两个类之间有巨大的团簇间隙。通过把许多类聚集为负类，我们希望能够看到负类中存在着巨大的团簇间隙。流形假设的违反也可以用相似的思路来解释。
+\item 当我们采用一对多的分类方法是，数据中有高度的不平衡性。虽然应用先验知识结合这种不平衡性到半监督学习中有助于提高性能，但是我们的假设是：除了相关性信息和一些训练实例，我们对数据一无所知。
+\item 一对一已经是非常受欢迎的用来创建多类分类器的方法了。在一对一方法下，使用基于DAG的架构，测试时间可以得到非常显著的减少。
+\end{itemize}
+
+我们生成了对于这10个类可能产生的45个二分类问题。优于空间有限，我们仅仅把由5个类组成的10个二分类问题的结果包括进来。总结在表4中。
+这些结果跟45个二分类问题的结果非常详细。
+表4的第一列展示了10个二分类问题。
+每个分类任务都包含了大约有2000份文档的数据集。
+我们使用备受欢迎的tf-idf特征，也就是在2000份文档中总共出现10次以上的词语。
+稍后，tf-idf特征在每份文档中被规范化。
+每个数据集的维度展示在表4的列2上。
+我们跟从Section4.2中同样的归纳评估过程。
+我们使用每个类中的两个已标记样本来训练分类器。
+我们使用线性核（特征矢量的点乘）作为相似性，这在文本分类任务中很常见。
+Decision Stump， J48, SVM，还有他们的Boosted版本，TSVM，ILDS，LapSVM，这些不同算法的性能都展示在表4中。
+所有SVM的参数值$C$都设置为1，保证性能的比较是公平的。
+性能的平均误差和标准误差都是在20次重复试验过后才记录的。\\
+
+表4说明，在使用DS和J48的情况下，SemiBoost显著（95\%的置信度水平，使用独立样本配对t-test测量所得）提高了在所有类对上的性能。
+SVM在5个类对上的性能得到了极大提升。
+而且我们也注意到，对于所有的类对，SemiBoosted版本的DS比SemiBoosted版本的SVM表现得更好。
+通过比较基于SVM的方法，SB-SVM在7个类对上明显优于LapSVM，在10个类对上明显优于ILDS。
+TSVM在5个类对上优于SB-SVM。总的来说，SB-SVM跟TSVM不相上下，但是要比LapSVM和ILDS好很多。SB-DS在5个类对上优于TSVM，同时在所有类对上优于LapSVM和ILDS。
+ILDS的差劲的性能可能要归咎于ILDS使用的核函数。
+ILDS使用一个基于图距离的核函数，这可能不适用于基于文本分类的任务。
+从实验中，我们可以看到，SemiBoosting Decision Stumps是一个可替代基于SVM的半监督学习的可行方法。
+
+\section{CONCLUSIONS AND FUTURE WORK}
+我们通过一个boosting框架，推出了一个用于半监督学习的算法。SemiBoost的用处在于，在有未标记样本的时候，它能提高任何给定的基分类器性能。
+总的来说，在UCI数据集和文本分类数据集上的结果说明了这个方法的可行性。
+SemiBoost的性能能与当前最先进的半监督学习算法相提并论。
+我们所观察到SemiBoost的稳定性，表明它可以在实践中起到十分大的用处。
+SemiBoost，就像几乎所有其他的半监督学习分类算法一样，当前是一个二分类算法。我们正在通过重定义一致性的测量来探索多分类的扩展。
+我们正在致力于获得相关的理论性成果，在相似矩阵揭示潜在的数据结构时，能够保证SemiBoost的性能。
+
+\section{ACKNOWLEGEMENTS}
+作者在此感谢所有匿名审核者给出的宝贵的意见。本实验由US Office of Naval Research grant no.N000140710225 和 US National Science Foundation grant no. IIS-0643494提供部分支持
+
+\section{REFERENCES}
+翻不动了。
+
+\hfill 杨健威
+ 
+\hfill January 14, 2019
+
+\end{document}
+
